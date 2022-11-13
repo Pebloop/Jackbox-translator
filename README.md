@@ -1,2 +1,2 @@
-# Jackbox-translator
-A simple software to translate jackbox
+# TranslatorBox
+A simple software to translate jackbox party games
