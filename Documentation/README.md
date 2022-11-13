@@ -1,7 +1,7 @@
+[⬅ back](../README.md)
+
 # TranslatorBox : Dev documentation
 A simple software to translate jackbox party games
-
-[back](../README.md)
 
 # General documentation
 
