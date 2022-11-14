@@ -1,17 +1,14 @@
 import PySimpleGUI as sg
-
-layout = [
-    [sg.Button("My simple app.")]
-]
-
-window = sg.Window("Hello World", layout)
+import src.layouts.page_start as page_start
 
 
 def launch_window():
+    window = sg.Window("TranslatorBox", page_start.layout)
+
     while True:
         event, values = window.read()
         print(event, values)
-        if event == sg.WIN_CLOSED or event == "My simple app.":
+        if event == sg.WIN_CLOSED:
             break
 
     window.close()

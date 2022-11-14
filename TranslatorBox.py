@@ -2,6 +2,8 @@
 
 __version__ = '0.0.0'
 
+from src.language import load_languages
+
 """ TranslatorBox
 
 Translator box is a tool for Jack box Party translations
@@ -21,4 +23,4 @@ def main():
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    main()
