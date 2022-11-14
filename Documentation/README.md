@@ -5,6 +5,10 @@ A simple software to translate jackbox party games
 
 # General documentation
 
+* [Setup your envirronment](./general/pages/Setup_your_environment.md)
+* [Code Documentation](./general/pages/code_documentation.md)
+* [Code style](./general/pages/norm.md)
+
 # Versions documentation
 
 Versions works with the following format x.y.z
