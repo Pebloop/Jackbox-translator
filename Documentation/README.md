@@ -20,5 +20,6 @@ Versions works with the following format x.y.z
 ## 1.y.z
 
   * [mockups](versions/1/pages/mockups.md)
+  * [Project features](versions/1/pages/project_features.md)
 
 ## 0.y.z
