@@ -35,3 +35,7 @@ def get_text(key: str):
         load_languages()
     text = current_language_dict.get(key)
     return text
+
+
+def get_current_language():
+    return languages[current_language]
