@@ -2,8 +2,6 @@
 
 __version__ = '0.0.0'
 
-from src.language import load_languages
-
 """ TranslatorBox
 
 Translator box is a tool for Jack box Party translations
@@ -14,7 +12,6 @@ You can find us on discord : https://discord.gg/XhwPfUrCEx
 This project is under the Apache 2 license.
 """
 
-import sys
 from src.start import launch_window
 
 

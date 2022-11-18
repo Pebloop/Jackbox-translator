@@ -6,7 +6,7 @@ This class is used to store the app general data.
 from typing import List
 
 from src.events.event import Event
-from src.layouts.page import Page
+from src.components.page import Page
 from src.layouts.page_start import PageStart
 
 

@@ -33,7 +33,7 @@ class Event:
         """
         return {}
 
-    def excute(self):
+    def execute(self):
         """ Execute the event.
 
         This method is used to execute the event.

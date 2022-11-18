@@ -4,6 +4,7 @@ This module contains the EventLanguageChanged class, which is used to notify the
 """
 
 from src.events.event import Event
+from src.utils.language import load_language, get_current_language
 
 
 class EventLanguageChanged(Event):
@@ -12,13 +13,13 @@ class EventLanguageChanged(Event):
     This class is used to notify the application that the language has changed.
     """
 
-    def __init__(self, original_language: str, new_language: str):
+    def __init__(self, new_language: str):
         """ Event : Language changed
 
         This method is used to initialize the event.
         """
         super().__init__()
-        self._original_language = original_language
+        self._original_language = get_current_language()
         self._new_language = new_language
 
     def get_original_language(self) -> str:
@@ -47,3 +48,6 @@ class EventLanguageChanged(Event):
             "original_language": self._original_language,
             "new_language": self._new_language
         }
+
+    def execute(self):
+        load_language(self._new_language)

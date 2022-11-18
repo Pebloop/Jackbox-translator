@@ -1,27 +1,34 @@
-""" A text component.
+""" A button component.
 
 This module contains the Text component for the layout.
 """
-from typing import List
+from typing import Optional
 
 from src.events.event import Event
-from src.language import get_current_language, get_text
-from src.layouts.components.component import Component
+from src.utils.color import Color
+from src.utils.language import get_text
+from src.components.component import Component
 import PySimpleGUI as sg
+
 
 class Text(Component):
     key: str = ""
     text: str = ""
 
-    def __init__(self, key: str):
+    def __init__(self, key: str, color: Optional[Color] = None):
         """ Text class constructor.
 
         This method is used to initialize the text component.
         :param key: The key of the text.
+        :param color: The color of the text.
         """
+        super().__init__()
+
+        hex_color = color.get_hex() if color is not None else ""
+
         self.key = key
-        self.sg_component = sg.Text("")
-        self.reload()
+        self.text = get_text(self.key)
+        self.sg_component = sg.Text(self.text, text_color=hex_color)
 
     def _load_text(self):
         """ Load the text.
@@ -30,7 +37,7 @@ class Text(Component):
         :return: The text.
         """
         self.text = get_text(self.key)
-        self.sg_component = [sg.Text(self.text)]
+        self.sg_component.update(self.text)
 
     def refresh(self, event: Event):
         """ Refresh the text.
@@ -39,7 +46,7 @@ class Text(Component):
         :param event: The events.
         """
         print(event.get_type())
-        if event.get_type() == "LANGUAGE_CHANGED":
+        if event.get_type() == "EventLanguageChanged":
             self._load_text()
 
     def reload(self):
@@ -49,6 +56,4 @@ class Text(Component):
         :return: The text.
         """
         self._load_text()
-        print(self.sg_component)
         return self.sg_component
-
