@@ -4,7 +4,11 @@ This module contains the Font class, which is used to represent fonts in the app
 """
 
 from typing import Optional
+
 import PySimpleGUI as sg
+
+from src.utils.style import Style
+
 
 class Font:
     """Font class.
@@ -22,10 +26,10 @@ class Font:
     def __init__(self,
                  font: Optional[str] = None,
                  size: Optional[int] = None,
-                 is_italic: bool = False,
-                 is_bold: bool = False,
-                 is_underline: bool = False,
-                 is_overstrike: bool = False):
+                 is_italic: Optional[bool] = None,
+                 is_bold: Optional[bool] = None,
+                 is_underline: Optional[bool] = None,
+                 is_overstrike: Optional[bool] = None):
         """Font class constructor
 
         This method is used to initialize the font class.
@@ -58,6 +62,7 @@ class Font:
 
         return clean_fonts
 
+    @classmethod
     def is_font_installed(self):
         """Is font installed.
 
@@ -79,14 +84,28 @@ class Font:
         style += "underline " if self.is_underline else ""
         style += "overstrike " if self.is_overstrike else ""
 
-        return self.font, 0, style
+        return self.font, self.size or 0, style
 
     def reset_font_style(self):
         """Reset font style.
 
         This method is used to reset the font style.
         """
-        self.is_italic = False
-        self.is_bold = False
-        self.is_underline = False
-        self.is_overstrike = False
+        self.is_italic = None
+        self.is_bold = None
+        self.is_underline = None
+        self.is_overstrike = None
+
+    def assign_style(self, style):
+        """Assign style.
+
+        This method is used to assign the style.
+        :param style: The style.
+        """
+
+        self.is_italic = Style.style_or_custom(self.is_italic, "is_italic", style)
+        self.is_bold = Style.style_or_custom(self.is_bold, "is_bold", style)
+        self.is_underline = Style.style_or_custom(self.is_underline, "is_underline", style)
+        self.is_overstrike = Style.style_or_custom(self.is_overstrike, "is_overstrike", style)
+        self.font = Style.style_or_custom(self.font, "font", style)
+        self.size = Style.style_or_custom(self.size, "size", style)

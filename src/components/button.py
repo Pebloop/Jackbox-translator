@@ -1,43 +1,49 @@
-""" A button component.
+""" A text component.
 
 This module contains the Text component for the layout.
 """
+from __future__ import annotations
+
+from types import FunctionType
 from typing import Optional
 
-from src.events.event import Event
-from src.utils.color import Color
-from src.utils.language import get_text
-from src.components.component import Component
 import PySimpleGUI as sg
 
+from src.components.component import Component
+from src.components.text import Text
+from src.events.event import Event
+from src.utils.font import Font
+from src.utils.style import Style
 
-class Text(Component):
-    key: str = ""
-    text: str = ""
 
-    def __init__(self, key: str, color: Optional[Color] = None):
+class Button(Component):
+    text: Text = None
+    action: FunctionType = None
+
+    def __init__(self,
+                 text: Optional[Text] = None,
+                 action: () = None):
         """ Text class constructor.
 
         This method is used to initialize the text component.
-        :param key: The key of the text.
-        :param color: The color of the text.
+        :param text: The text.
+        :param action: The action to execute when the button is clicked.
         """
         super().__init__()
 
-        hex_color = color.get_hex() if color is not None else ""
+        # self.assign_style(style)
 
-        self.key = key
-        self.text = get_text(self.key)
-        self.sg_component = sg.Text(self.text, text_color=hex_color)
+        self.text = text
+        self.action = action
 
-    def _load_text(self):
-        """ Load the text.
+        color_hex = self.text.color.get_hex() if self.text.color is not None else None
+        background_color_hex = self.text.background_color.get_hex() if self.text.background_color is not None else None
 
-        This method is used to load the text.
-        :return: The text.
-        """
-        self.text = get_text(self.key)
-        self.sg_component.update(self.text)
+        self.sg_component = sg.Button(button_text = self.text.text,
+                                      font = self.text.font.get_font(),
+                                      button_color = (color_hex, background_color_hex),
+                                      enable_events = True,
+                                      key = str(id(self)))
 
     def refresh(self, event: Event):
         """ Refresh the text.
@@ -45,9 +51,10 @@ class Text(Component):
         This method is used to refresh the text.
         :param event: The events.
         """
-        print(event.get_type())
-        if event.get_type() == "EventLanguageChanged":
-            self._load_text()
+        self.text.refresh(event)
+        if event.get_type() == "EventSimplePyGui":
+            if event.get_data().get("event") == str(id(self)):
+                self.action() if self.action is not None else None
 
     def reload(self):
         """ Reload the text.
@@ -55,5 +62,21 @@ class Text(Component):
         This method is used to reload the text.
         :return: The text.
         """
-        self._load_text()
+        self.text._load_text()
         return self.sg_component
+
+    def assign_style(self, style):
+        """ Assign the style to the text.
+
+        This method is used to assign the style to the text.
+        :param style: The style to assign.
+        """
+        if self.font is None:
+            self.font = Font()
+
+        if style is None:
+            return
+
+        self.color = Style.style_or_custom(self.color, 'color', style)
+        self.background_color = Style.style_or_custom(self.background_color, 'background_color', style)
+        self.font.assign_style(style.font)

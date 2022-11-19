@@ -52,4 +52,11 @@ class Component:
         """
         return self.sg_component
 
+    def assign_style(self, style):
+        """Assign the style to the component.
+
+        This method is used to assign the style to the component.
+        """
+        pass
+
 
