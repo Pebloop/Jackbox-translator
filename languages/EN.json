@@ -1,5 +1,8 @@
 {
-  "LANG": "English",
+  "LANGUAGE": "English",
+  "LANG": "EN",
   "CURRENT_PROJECTS": "Your current projects",
-  "NO_PROJECTS": "You currently don't have any projects.\nAdd a game to start."
+  "NO_PROJECTS": "You currently don't have any projects.\nAdd a game to start.",
+  "EN": "EN",
+  "FR": "FR"
 }

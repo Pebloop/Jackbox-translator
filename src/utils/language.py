@@ -4,7 +4,7 @@ from typing import List
 
 languages: List[str] = []
 current_language: int = 0
-current_language_dict: dict = {}
+current_language_dict: dict = { }
 
 
 def load_languages():
@@ -19,6 +19,7 @@ def load_languages():
 
 def load_language(language: str):
     global current_language_dict
+    global current_language
 
     try:
         current_language = languages.index(language)

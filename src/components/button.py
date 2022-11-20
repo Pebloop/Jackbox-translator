@@ -51,10 +51,10 @@ class Button(Component):
         This method is used to refresh the text.
         :param event: The events.
         """
-        self.text.refresh(event)
         if event.get_type() == "EventSimplePyGui":
             if event.get_data().get("event") == str(id(self)):
                 self.action() if self.action is not None else None
+        self.sg_component.update(text = self.text.load_text())
 
     def reload(self):
         """ Reload the text.
@@ -62,7 +62,7 @@ class Button(Component):
         This method is used to reload the text.
         :return: The text.
         """
-        self.text._load_text()
+        self.sg_component.update(text = self.text.load_text())
         return self.sg_component
 
     def assign_style(self, style):

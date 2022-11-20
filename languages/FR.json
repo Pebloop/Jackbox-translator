@@ -1,5 +1,6 @@
 {
-  "LANG": "Français",
+  "LANGUAGE": "Français",
+  "LANG": "FR",
   "CURRENT_PROJECTS": "Vos projets",
   "NO_PROJECTS": "Vous n'avez actuellement aucun projet.\nAjouter en un pour commencer."
 }

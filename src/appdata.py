@@ -5,9 +5,8 @@ This class is used to store the app general data.
 """
 from typing import List
 
+from src.components.layout import Layout
 from src.events.event import Event
-from src.components.page import Page
-from src.layouts.page_start import PageStart
 
 
 class AppData:
@@ -16,7 +15,7 @@ class AppData:
     This class is used to store the app general data.
     """
 
-    _page: Page = None
+    _page: Layout = None
     _events: List[Event] = []
 
     def __init__(self):
@@ -25,9 +24,12 @@ class AppData:
         This method is used to initialize the app data.
 
         """
-        self._page = PageStart()
+        from src.layouts.layout_start import LayoutStart
 
-    def get_page(self) -> Page:
+        self._events = []
+        self._page = LayoutStart(self)
+
+    def get_page(self) -> Layout:
         """ Get the page.
 
         This method is used to get the page.
@@ -35,7 +37,7 @@ class AppData:
         """
         return self._page
 
-    def set_page(self, page: Page):
+    def set_page(self, page: Layout):
         """ Set the page.
 
         This method is used to set the page.
@@ -73,4 +75,3 @@ class AppData:
         This method is used to clear the events.
         """
         self._events = []
-

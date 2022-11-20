@@ -12,6 +12,9 @@ def launch_window():
 
     window = sg.Window("TranslatorBox", layout = data.get_page().display(), finalize = True)
 
+    event, values = window.read()
+    data.push_event(EventSimplePyGui(event, values))
+
     while True:
         while len(data.get_events()) > 0:
             evn = data.pop_event()

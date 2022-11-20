@@ -59,8 +59,16 @@ class Text(Component):
         self.sg_component = sg.Text(self.text,
                                     text_color = hex_color,
                                     background_color = hex_background_color,
-                                    font = font
-                                    )
+                                    font = font,
+                                    key = str(id(self)))
+
+    def load_text(self) -> str:
+        """ Load the text.
+
+        This method is used to load the text.
+        :return: The text.
+        """
+        return get_text(self.key)
 
     def _load_text(self):
         """ Load the text.
