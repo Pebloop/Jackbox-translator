@@ -11,6 +11,7 @@ import PySimpleGUI as sg
 
 from src.components.component import Component
 from src.components.text import Text
+from src.data.appdata import AppData
 from src.events.event import Event
 from src.utils.font import Font
 from src.utils.style import Style
@@ -21,6 +22,7 @@ class Button(Component):
     action: FunctionType = None
 
     def __init__(self,
+                 appdata: AppData,
                  text: Optional[Text] = None,
                  action: () = None):
         """ Text class constructor.
@@ -29,7 +31,7 @@ class Button(Component):
         :param text: The text.
         :param action: The action to execute when the button is clicked.
         """
-        super().__init__()
+        super().__init__(appdata)
 
         # self.assign_style(style)
 

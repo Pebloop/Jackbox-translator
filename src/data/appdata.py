@@ -5,8 +5,10 @@ This class is used to store the app general data.
 """
 from typing import List
 
+from src.data.language import LanguageManager
 from src.data.save_file import SaveFile
 from src.events.event import Event
+from src.utils.style import Style
 
 
 class AppData:
@@ -18,6 +20,8 @@ class AppData:
     _page = None
     _events: List[Event] = []
     _save_file = None
+    _language_manager = None
+    _style = None
 
     def __init__(self):
         """ App data class constructor
@@ -29,6 +33,8 @@ class AppData:
 
         self._events = []
         self._save_file = SaveFile()
+        self._language_manager = LanguageManager(self._save_file.get_language())
+        self._style = Style(self)
         self._page = LayoutStart(self)
 
     def get_page(self):
@@ -85,3 +91,19 @@ class AppData:
         :return: The save file.
         """
         return self._save_file
+
+    def get_language_manager(self) -> LanguageManager:
+        """ Get the language manager.
+
+        This method is used to get the language manager.
+        :return: The language manager.
+        """
+        return self._language_manager
+
+    def get_style(self) -> Style:
+        """ Get the style.
+
+        This method is used to get the style.
+        :return: The style.
+        """
+        return self._style

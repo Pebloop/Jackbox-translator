@@ -9,10 +9,10 @@ from typing import Optional
 import PySimpleGUI as sg
 
 from src.components.component import Component
+from src.data.appdata import AppData
 from src.events.event import Event
 from src.utils.color import Color
 from src.utils.font import Font
-from src.utils.language import get_text
 from src.utils.style import Style
 
 
@@ -24,6 +24,7 @@ class Text(Component):
     font: Font = None
 
     def __init__(self,
+                 appdata: AppData,
                  key: str,
                  color: Optional[Color] = None,
                  background_color: Optional[Color] = None,
@@ -32,15 +33,19 @@ class Text(Component):
         """ Text class constructor.
 
         This method is used to initialize the text component.
+        :param appdata: The application data.
         :param key: The key of the text.
         :param color: The color of the text.
+        :param background_color: The background color of the text.
+        :param font: The font of the text.
+        :param style: The style of the text.
         """
-        super().__init__()
+        super().__init__(appdata)
 
         self.assign_style(style)
 
         self.key = key
-        self.text = get_text(self.key)
+        self.text = appdata.get_language_manager().get_text(self.key)
         self.color = color or self.color
         self.background_color = background_color or self.background_color
 
@@ -68,7 +73,7 @@ class Text(Component):
         This method is used to load the text.
         :return: The text.
         """
-        return get_text(self.key)
+        return self._appdata.get_language_manager().get_text(self.key)
 
     def _load_text(self):
         """ Load the text.
@@ -76,7 +81,7 @@ class Text(Component):
         This method is used to load the text.
         :return: The text.
         """
-        self.text = get_text(self.key)
+        self.text = self._appdata.get_language_manager().get_text(self.key)
         self.sg_component.update(self.text)
 
     def refresh(self, event: Event):

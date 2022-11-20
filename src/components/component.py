@@ -6,6 +6,7 @@ from typing import List
 
 import PySimpleGUI as sg
 
+from src.data.appdata import AppData
 from src.events.event import Event
 
 
@@ -16,12 +17,14 @@ class Component:
     """
 
     sg_component = None
+    _appdata = None
 
-    def __init__(self):
+    def __init__(self, appdata: AppData):
         """Component class constructor
 
         This method is used to initialize the component.
         """
+        self._appdata = appdata
         self.sg_component = sg.Text("")
 
     def display(self):
@@ -58,5 +61,3 @@ class Component:
         This method is used to assign the style to the component.
         """
         pass
-
-

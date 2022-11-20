@@ -22,6 +22,7 @@ def launch_window():
         data.push_event(EventSimplePyGui(event, values))
 
         if event == sg.WIN_CLOSED:
+            data.get_save_file().save()
             break
 
     window.close()

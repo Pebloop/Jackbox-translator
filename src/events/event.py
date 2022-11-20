@@ -10,12 +10,14 @@ class Event:
     This class is the base class for all events.
     """
 
-    def __init__(self):
+    def __init__(self, appdata):
         """ Event class constructor
 
         This method is used to initialize the event.
         """
-        pass
+        from src.data.appdata import AppData
+
+        self._appdata: AppData = appdata
 
     def get_type(self) -> str:
         """ Get the type of the event.
@@ -31,7 +33,7 @@ class Event:
         This method is used to get the data of the event.
         :return: The data of the event.
         """
-        return {}
+        return { }
 
     def execute(self):
         """ Execute the event.

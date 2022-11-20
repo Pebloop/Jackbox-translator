@@ -11,7 +11,7 @@ class Style:
     This class is used to define the style of the app.
     """
 
-    def __init__(self):
+    def __init__(self, appdata):
         """Style class constructor
 
         This method is used to initialize the style class.
@@ -19,17 +19,18 @@ class Style:
         from src.components.text import Text
         from src.utils.font import Font
 
+        self.appdata = appdata
         self.theme = ""
 
-        self.title1 = Text("title1", font = Font(size = 18, is_bold = True, is_underline = True))
-        self.title2 = Text("title2")
-        self.title3 = Text("title3")
-        self.title4 = Text("title4")
-        self.title5 = Text("title5")
+        self.title1 = Text(appdata, "title1", font = Font(size = 18, is_bold = True, is_underline = True))
+        self.title2 = Text(appdata, "title2")
+        self.title3 = Text(appdata, "title3")
+        self.title4 = Text(appdata, "title4")
+        self.title5 = Text(appdata, "title5")
 
-        self.text = Text("text")
-        self.quote = Text("quote")
-        self.link = Text("link")
+        self.text = Text(appdata, "text")
+        self.quote = Text(appdata, "quote")
+        self.link = Text(appdata, "link")
 
     @classmethod
     def style_or_custom(cls, value, value_name: str, style):
