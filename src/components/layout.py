@@ -6,6 +6,7 @@ This class is used to create a page for the application.
 import PySimpleGUI as sg
 
 from src.components.component import Component
+from src.data.appdata import AppData
 from src.events.event import Event
 from src.utils.align import Align
 
@@ -19,9 +20,12 @@ class Layout(Component):
     VERTICAL = "VERTICAL"
     HORIZONTAL = "HORIZONTAL"
 
-    def __init__(self):
+    _appdata = None
+
+    def __init__(self, appdata: AppData):
         """ Page class constructor."""
         super().__init__()
+        self._appdata = appdata
         self._layout = []
         self.align = Align.CENTER
         self.orientation = Layout.HORIZONTAL

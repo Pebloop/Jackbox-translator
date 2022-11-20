@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 
-from src.appdata import AppData
+from src.data.appdata import AppData
 from src.events.event_simplepygui import EventSimplePyGui
 
 
@@ -11,9 +11,6 @@ def launch_window():
     data: AppData = AppData()
 
     window = sg.Window("TranslatorBox", layout = data.get_page().display(), finalize = True)
-
-    event, values = window.read()
-    data.push_event(EventSimplePyGui(event, values))
 
     while True:
         while len(data.get_events()) > 0:
