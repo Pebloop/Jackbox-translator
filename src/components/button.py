@@ -56,7 +56,8 @@ class Button(Component):
         if event.get_type() == "EventSimplePyGui":
             if event.get_data().get("event") == str(id(self)):
                 self.action() if self.action is not None else None
-        self.sg_component.update(text = self.text.load_text())
+        if event.get_type() == "EventLanguageChanged":
+            self.sg_component.update(text = self.text.load_text())
 
     def reload(self):
         """ Reload the text.

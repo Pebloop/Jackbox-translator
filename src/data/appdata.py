@@ -5,7 +5,10 @@ This class is used to store the app general data.
 """
 from typing import List
 
-from src.data.language import LanguageManager
+from PySimpleGUI import Window
+
+from src.data.manager.language_manager import LanguageManager
+from src.data.manager.project_manager import ProjectManager
 from src.data.save_file import SaveFile
 from src.events.event import Event
 from src.utils.style import Style
@@ -17,11 +20,14 @@ class AppData:
     This class is used to store the app general data.
     """
 
+    _main_page = None
     _page = None
     _events: List[Event] = []
     _save_file = None
     _language_manager = None
     _style = None
+    _project_manager = None
+    _window: Window = None
 
     def __init__(self):
         """ App data class constructor
@@ -29,13 +35,41 @@ class AppData:
         This method is used to initialize the app data.
 
         """
+        from src.layouts.layout_main import LayoutMain
         from src.layouts.layout_start import LayoutStart
 
+        self._window = None
         self._events = []
         self._save_file = SaveFile()
         self._language_manager = LanguageManager(self._save_file.get_language())
+        self._project_manager = ProjectManager(self._save_file.get_projects())
         self._style = Style(self)
         self._page = LayoutStart(self)
+        self._main_page = LayoutMain(self)
+
+    def set_window(self, window: Window):
+        """ Set the window.
+
+        This method is used to set the window.
+        :param window: The window.
+        """
+        self._window = window
+
+    def get_window(self) -> Window:
+        """ Get the window.
+
+        This method is used to get the window.
+        :return: The window.
+        """
+        return self._window
+
+    def get_main_page(self):
+        """ Get the main page.
+
+        This method is used to get the main page.
+        :return: The main page.
+        """
+        return self._main_page
 
     def get_page(self):
         """ Get the page.
@@ -52,6 +86,7 @@ class AppData:
         :param page: The page.
         """
         self._page = page
+        self._main_page.change_page(page)
 
     def get_events(self) -> List[Event]:
         """ Get the events.

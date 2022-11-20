@@ -10,13 +10,15 @@ def launch_window():
     """
     data: AppData = AppData()
 
-    window = sg.Window("TranslatorBox", layout = data.get_page().display(), finalize = True)
+    window = sg.Window("TranslatorBox", layout = data.get_main_page().display(), finalize = True,
+                       icon = "./res/icon.ico")
+    data.set_window(window)
 
     while True:
         while len(data.get_events()) > 0:
             evn = data.pop_event()
             evn.execute()
-            data.get_page().refresh(evn)
+            data.get_main_page().refresh(evn)
         event, values = window.read()
         print(event, values)
         data.push_event(EventSimplePyGui(event, values))
