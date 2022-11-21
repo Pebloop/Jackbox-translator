@@ -41,13 +41,6 @@ class Component:
         """
         return self.sg_component
 
-    def reload(self):
-        """Reload the component.
-
-        This method is used to reload the component.
-        """
-        return self.sg_component
-
     def update(self, data: dict):
         """Update the component.
 

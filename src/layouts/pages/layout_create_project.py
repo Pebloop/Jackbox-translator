@@ -21,19 +21,19 @@ class LayoutCreateProject(Layout):
         self.orientation = Layout.VERTICAL
         self.align = Align.LEFT
         self._layout = [
-                Button(appdata, Text(appdata, "BACK"), action = lambda: self._back()),
-                Text(appdata, "NEW_PROJECT", style = self._appdata.get_style().title1),
+                [Button(appdata, Text(appdata, "BACK"), action = lambda: self._back()),
+                 Text(appdata, "NEW_PROJECT", style = self._appdata.get_style().title1)],
                 [Text(appdata, "PROJECT_NAME"), InputText(appdata)],
                 [Text(appdata, "PROJECT_LANGUAGE"), InputText(appdata)],
                 [Text(appdata, "GAME_LOCATION"), InputText(appdata, action = self._check_game), Browser(appdata)],
                 [Text(appdata, "PROJECT_GAME"), Text(appdata, "GAME_UNKNOWN")],
-                Button(appdata, Text(appdata, "CREATE"), action = lambda: self._create_new_project())
+                [Button(appdata, Text(appdata, "CREATE"), action = lambda: self._create_new_project())]
                 ]
-        self._project_name = self._layout[2][1]
-        self._project_language = self._layout[3][1]
-        self._project_location = self._layout[4][1]
-        self._project_game = self._layout[5][1]
-        self._layout_game = self._layout[5][1]
+        self._project_name = self._layout[1][1]
+        self._project_language = self._layout[2][1]
+        self._project_location = self._layout[3][1]
+        self._project_game = self._layout[4][1]
+        self._layout_game = self._layout[4][1]
         self._game = JackGame.UNKNOWN
         self.load()
 

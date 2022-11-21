@@ -1,5 +1,6 @@
 from src.components.button import Button
 from src.components.custom.project_element import ProjectElement
+from src.components.custom.project_element_manager import ProjectElementManager
 from src.components.layout import Layout
 from src.components.text import Text
 from src.data.appdata import AppData
@@ -13,9 +14,9 @@ class LayoutStart(Layout):
         self.orientation = Layout.VERTICAL
         self.align = Align.LEFT
         self._layout = [
-                Text(appdata, "CURRENT_PROJECTS", style = self._appdata.get_style().title1),
+                [Text(appdata, "CURRENT_PROJECTS", style = self._appdata.get_style().title1)],
                 self._load_projects_layout(),
-                Button(appdata, Text(appdata, "NEW_PROJECT"), action = lambda: self._create_new_project()),
+                [Button(appdata, Text(appdata, "NEW_PROJECT"), action = lambda: self._create_new_project())],
                 ]
         self.load()
 
@@ -30,7 +31,7 @@ class LayoutStart(Layout):
         for project in self._appdata.get_save_file().get_projects():
             projects_layout.append(ProjectElement(self._appdata, project, "res/tjpp2.png", "test"))
 
-        return projects_layout
+        return [ProjectElementManager(self._appdata, projects_layout)]
 
     def _create_new_project(self):
         self._appdata.push_event(EventPageChanged(self._appdata, "create_project"))

@@ -10,7 +10,7 @@ def launch_window():
     """
     data: AppData = AppData()
 
-    window = sg.Window("TranslatorBox", layout = data.get_main_page().display(), finalize = True,
+    window = sg.Window("TranslatorBox", layout = [[data.get_main_page().display()]], finalize = True,
                        icon = "./res/icon.ico")
     data.set_window(window)
 

@@ -11,6 +11,7 @@ import PySimpleGUI as sg
 from src.components.component import Component
 from src.data.appdata import AppData
 from src.events.event import Event
+from src.utils.align import Align
 from src.utils.color import Color
 from src.utils.font import Font
 from src.utils.style import Style
@@ -30,7 +31,8 @@ class Text(Component):
                  color: Optional[Color] = None,
                  background_color: Optional[Color] = None,
                  font: Optional[Font] = None,
-                 style: Optional[Text] = None):
+                 style: Optional[Text] = None,
+                 align: Align = Align.LEFT):
         """ Text class constructor.
 
         This method is used to initialize the text component.
@@ -63,11 +65,11 @@ class Text(Component):
         hex_background_color = self.background_color.get_hex() if self.background_color is not None else None
         font = self.font.get_font() if self.font is not None else None
 
-        self.sg_component = sg.Text(self.text,
-                                    text_color = hex_color,
-                                    background_color = hex_background_color,
-                                    font = font,
-                                    key = str(id(self)))
+        self.sg_component = sg.Column([[sg.Text(self.text,
+                                                text_color = hex_color,
+                                                background_color = hex_background_color,
+                                                font = font,
+                                                key = str(id(self)))]], justification = str(align), pad = (0, 0))
 
     def load_text(self) -> str:
         """ Load the text.
@@ -84,7 +86,7 @@ class Text(Component):
         :return: The text.
         """
         self.text = self._appdata.get_language_manager().get_text(self.key)
-        self.sg_component.update(self.text)
+        self.sg_component.Rows[0][0].update(self.text)
 
     def refresh(self, event: Event):
         """ Refresh the text.

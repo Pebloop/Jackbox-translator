@@ -1,15 +1,11 @@
-from src.components.image import Image
 from src.components.layout import Layout
-from src.components.text import Text
 from src.data.appdata import AppData
 
 
-class ProjectElement(Layout):
+class ProjectElementManager(Layout):
     def __init__(self,
                  appdata: AppData,
-                 title: str,
-                 image: str,
-                 description: str):
+                 elements: list):
         """ Input text class constructor
 
             This method is used to initialize the input text component.
@@ -17,7 +13,6 @@ class ProjectElement(Layout):
         """
         print("ProjectElement")
         super().__init__(appdata)
-        self._title = title
-        self._image = image
-        self._layout = [[Image(appdata, image, size = (64, 64)), Text(appdata, title), Text(appdata, description)]]
+        self.orientation = Layout.VERTICAL
+        self._layout = [elements]
         self.load()

@@ -13,6 +13,7 @@ from src.components.component import Component
 from src.components.text import Text
 from src.data.appdata import AppData
 from src.events.event import Event
+from src.utils.align import Align
 from src.utils.font import Font
 from src.utils.style import Style
 
@@ -24,7 +25,8 @@ class Button(Component):
     def __init__(self,
                  appdata: AppData,
                  text: Optional[Text] = None,
-                 action: () = None):
+                 action: () = None,
+                 align: str = Align.LEFT):
         """ Text class constructor.
 
         This method is used to initialize the text component.
@@ -41,11 +43,12 @@ class Button(Component):
         color_hex = self.text.color.get_hex() if self.text.color is not None else None
         background_color_hex = self.text.background_color.get_hex() if self.text.background_color is not None else None
 
-        self.sg_component = sg.Button(button_text = self.text.text,
-                                      font = self.text.font.get_font(),
-                                      button_color = (color_hex, background_color_hex),
-                                      enable_events = True,
-                                      key = str(id(self)))
+        self.sg_component = sg.Column([[sg.Button(button_text = self.text.text,
+                                                  font = self.text.font.get_font(),
+                                                  button_color = (color_hex, background_color_hex),
+                                                  enable_events = True,
+                                                  key = str(id(self)),
+                                                  )]], justification = align, pad = (0, 0))
 
     def refresh(self, event: Event):
         """ Refresh the text.
@@ -57,16 +60,7 @@ class Button(Component):
             if event.get_data().get("event") == str(id(self)):
                 self.action() if self.action is not None else None
         if event.get_type() == "EventLanguageChanged":
-            self.sg_component.update(text = self.text.load_text())
-
-    def reload(self):
-        """ Reload the text.
-
-        This method is used to reload the text.
-        :return: The text.
-        """
-        self.sg_component.update(text = self.text.load_text())
-        return self.sg_component
+            self.sg_component.Rows[0][0].update(text = self.text.load_text())
 
     def assign_style(self, style):
         """ Assign the style to the text.

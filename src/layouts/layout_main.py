@@ -17,13 +17,13 @@ class LayoutMain(Layout):
         self.orientation = Layout.VERTICAL
         self.align = Align.LEFT
         self._layout = [
-                Button(appdata, Text(appdata, "LANG"), action = lambda: self._switch_language()),
-                LayoutChanger(appdata, [
+                [Button(appdata, Text(appdata, "LANG"), action = lambda: self._switch_language())],
+                [LayoutChanger(appdata, [
                         ("start", LayoutStart(appdata)),
                         ("create_project", LayoutCreateProject(appdata))
                         ])
-                ]
-        self._page = self._layout[1]
+                 ]]
+        self._page = self._layout[1][0]
         self.load()
 
     def change_page(self, page: str):
