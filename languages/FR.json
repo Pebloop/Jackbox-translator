@@ -16,5 +16,6 @@
   "ERROR_CREATE_UNKNOWN_GAME": "Aucun jeu n'a ete detecte dans le dossier selectionne.",
   "ERROR_CREATE_PROJECT_EXISTS": "Ce nom est deja utilise",
   "ERROR_CREATE_PROJECT_INVALID_NAME": "Merci d'enter un nom valide.",
-  "ERROR_CREATE_PROJECT_INVALID_LANGUAGE": "Merci de choisir une langue valide."
+  "ERROR_CREATE_PROJECT_INVALID_LANGUAGE": "Merci de choisir une langue valide.",
+  "ERROR_NOT_IMPLEMENTED": "Cette fonctionnalite n'est pas encore implementee."
 }

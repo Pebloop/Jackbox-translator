@@ -8,7 +8,7 @@ from src.components.input_text import InputText
 from src.components.layout import Layout
 from src.components.text import Text
 from src.data.appdata import AppData
-from src.data.project import Game, Project
+from src.data.project import JackGame, Project
 from src.events.event_page_changed import EventPageChanged
 from src.events.event_project_created import EventProjectCreated
 from src.utils.align import Align
@@ -34,40 +34,40 @@ class LayoutCreateProject(Layout):
         self._project_location = self._layout[4][1]
         self._project_game = self._layout[5][1]
         self._layout_game = self._layout[5][1]
-        self._game = Game.UNKNOWN
+        self._game = JackGame.UNKNOWN
         self.load()
 
     def _check_game(self):
-        game: Game = Game.UNKNOWN
+        game: JackGame = JackGame.UNKNOWN
         if os.path.exists(self._project_location.get_text() + "/The Jackbox Party Pack.exe"):
-            game = Game.JACKBOX1
+            game = JackGame.JACKBOX1
             self._layout_game.set_text("The Jackbox Party Pack")
         elif os.path.exists(self._project_location.get_text() + "/The Jackbox Party Pack 2.exe"):
-            game = Game.JACKBOX2
+            game = JackGame.JACKBOX2
             self._layout_game.set_text("The Jackbox Party Pack 2")
         elif os.path.exists(self._project_location.get_text() + "/The Jackbox Party Pack 3.exe"):
-            game = Game.JACKBOX3
+            game = JackGame.JACKBOX3
             self._layout_game.set_text("The Jackbox Party Pack 3")
         elif os.path.exists(self._project_location.get_text() + "/The Jackbox Party Pack 4.exe"):
-            game = Game.JACKBOX4
+            game = JackGame.JACKBOX4
             self._layout_game.set_text("The Jackbox Party Pack 4")
         elif os.path.exists(self._project_location.get_text() + "/The Jackbox Party Pack 5.exe"):
-            game = Game.JACKBOX5
+            game = JackGame.JACKBOX5
             self._layout_game.set_text("The Jackbox Party Pack 5")
         elif os.path.exists(self._project_location.get_text() + "/The Jackbox Party Pack 6.exe"):
-            game = Game.JACKBOX6
+            game = JackGame.JACKBOX6
             self._layout_game.set_text("The Jackbox Party Pack 6")
         elif os.path.exists(self._project_location.get_text() + "/The Jackbox Party Pack 7.exe"):
-            game = Game.JACKBOX7
+            game = JackGame.JACKBOX7
             self._layout_game.set_text("The Jackbox Party Pack 7")
         elif os.path.exists(self._project_location.get_text() + "/The Jackbox Party Pack 8.exe"):
-            game = Game.JACKBOX8
+            game = JackGame.JACKBOX8
             self._layout_game.set_text("The Jackbox Party Pack 8")
         elif os.path.exists(self._project_location.get_text() + "/The Jackbox Party Pack 9.exe"):
-            game = Game.JACKBOX9
+            game = JackGame.JACKBOX9
             self._layout_game.set_text("The Jackbox Party Pack 9")
         else:
-            game = Game.UNKNOWN
+            game = JackGame.UNKNOWN
             self._layout_game.set_key("GAME_UNKNOWN")
         self._game = game
 
@@ -86,12 +86,12 @@ class LayoutCreateProject(Layout):
             sg.Popup(self._appdata.get_language_manager().get_text("ERROR_CREATE_PROJECT_INVALID_LANGUAGE"))
             return
 
-        if (self._game is not Game.UNKNOWN):
+        if (self._game is not JackGame.UNKNOWN):
             self._appdata.get_project_manager().create_project(Project(self._project_name.get_text(),
                                                                        self._project_language.get_text(),
                                                                        self._project_location.get_text(),
-                                                                       Game.JACKBOX2))
+                                                                       JackGame.JACKBOX2))
             self._appdata.push_event(EventProjectCreated(self._appdata, self._project_name.get_text()))
-            self._appdata.push_event(EventPageChanged(self._appdata, "project_main"))
+            self._appdata.push_event(EventPageChanged(self._appdata, "project_editor"))
         else:
             sg.Popup(self._appdata.get_language_manager().get_text("ERROR_CREATE_UNKNOWN_GAME"))

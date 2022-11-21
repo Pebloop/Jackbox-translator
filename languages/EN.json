@@ -16,5 +16,6 @@
   "ERROR_CREATE_UNKNOWN_GAME": "The game you selected is not supported by the editor.",
   "ERROR_CREATE_PROJECT_EXISTS": "A project with this name already exists.",
   "ERROR_CREATE_PROJECT_INVALID_NAME": "The project name is invalid.",
-  "ERROR_CREATE_PROJECT_INVALID_LANGUAGE": "The project language is invalid."
+  "ERROR_CREATE_PROJECT_INVALID_LANGUAGE": "The project language is invalid.",
+  "ERROR_NOT_IMPLEMENTED": "This feature is not implemented yet."
 }
