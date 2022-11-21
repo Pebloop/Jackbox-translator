@@ -3,5 +3,18 @@
   "LANG": "FR",
   "CURRENT_PROJECTS": "Vos projets",
   "NO_PROJECTS": "Vous n'avez actuellement aucun projet.\nAjoutez en un pour commencer.",
-  "NEW_PROJECT": "Nouveau projet"
+  "NEW_PROJECT": "Nouveau projet",
+  "PROJECT_NAME": "Nom du projet",
+  "PROJECT_LANGUAGE": "Langue du projet",
+  "GAME_LOCATION": "Emplacement du jeu",
+  "PROJECT_GAME": "Jeu detecte: ",
+  "CREATE": "Creer",
+  "BACK": "Retour",
+  "PROJECTS": "Projets",
+  "BROWSE": "Parcourir",
+  "GAME_UNKNOWN": "Jeu inconnu",
+  "ERROR_CREATE_UNKNOWN_GAME": "Aucun jeu n'a ete detecte dans le dossier selectionne.",
+  "ERROR_CREATE_PROJECT_EXISTS": "Ce nom est deja utilise",
+  "ERROR_CREATE_PROJECT_INVALID_NAME": "Merci d'enter un nom valide.",
+  "ERROR_CREATE_PROJECT_INVALID_LANGUAGE": "Merci de choisir une langue valide."
 }

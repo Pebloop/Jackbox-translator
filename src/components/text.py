@@ -25,7 +25,8 @@ class Text(Component):
 
     def __init__(self,
                  appdata: AppData,
-                 key: str,
+                 key: str = None,
+                 text: str = None,
                  color: Optional[Color] = None,
                  background_color: Optional[Color] = None,
                  font: Optional[Font] = None,
@@ -45,7 +46,8 @@ class Text(Component):
         self.assign_style(style)
 
         self.key = key
-        self.text = appdata.get_language_manager().get_text(self.key)
+        self.is_key = key is not None
+        self.text = text or self.load_text()
         self.color = color or self.color
         self.background_color = background_color or self.background_color
 
@@ -73,7 +75,7 @@ class Text(Component):
         This method is used to load the text.
         :return: The text.
         """
-        return self._appdata.get_language_manager().get_text(self.key)
+        return self._appdata.get_language_manager().get_text(self.key) if self.is_key else self.text
 
     def _load_text(self):
         """ Load the text.
@@ -121,6 +123,34 @@ class Text(Component):
         self.background_color = background_color
         hex_background_color = background_color.get_hex() if background_color is not None else None
         self.sg_component.update(background_color = hex_background_color)
+
+    def set_text(self, text: str):
+        """ Set the text.
+
+        This method is used to set the text.
+        :param text: The text.
+        """
+        self.text = text
+        self.is_key = False
+        self.sg_component.update(text)
+
+    def get_text(self) -> str:
+        """ Get the text.
+
+        This method is used to get the text.
+        :return: The text.
+        """
+        return self.text
+
+    def set_key(self, key: str):
+        """ Set the key of the text.
+
+        This method is used to set the key of the text.
+        :param key: The key of the text.
+        """
+        self.key = key
+        self.is_key = key is not None
+        self._load_text()
 
     def assign_style(self, style):
         """ Assign the style to the text.

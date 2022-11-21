@@ -3,7 +3,6 @@ from src.components.layout import Layout
 from src.components.text import Text
 from src.data.appdata import AppData
 from src.events.event_page_changed import EventPageChanged
-from src.layouts.layout_create_project import LayoutCreateProject
 from src.utils.align import Align
 
 
@@ -26,4 +25,4 @@ class LayoutStart(Layout):
             return Text(self._appdata, "NO_PROJECTS")
 
     def _create_new_project(self):
-        self._appdata.push_event(EventPageChanged(self._appdata, LayoutCreateProject(self._appdata)))
+        self._appdata.push_event(EventPageChanged(self._appdata, "create_project"))

@@ -52,3 +52,4 @@ class EventLanguageChanged(Event):
     def execute(self):
         self._appdata.get_language_manager().load_language(self._new_language)
         self._appdata.get_save_file().set_language(self._new_language)
+

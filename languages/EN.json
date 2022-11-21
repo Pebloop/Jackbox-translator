@@ -3,5 +3,18 @@
   "LANG": "EN",
   "CURRENT_PROJECTS": "Your current projects",
   "NO_PROJECTS": "You currently don't have any projects.\nAdd a game to start.",
-  "NEW_PROJECT": "New project"
+  "NEW_PROJECT": "New project",
+  "PROJECT_NAME": "Project name",
+  "PROJECT_LANGUAGE": "Project language",
+  "GAME_LOCATION": "Game location",
+  "PROJECT_GAME": "Detected game: ",
+  "CREATE": "Create",
+  "BACK": "Back",
+  "PROJECTS": "Projects",
+  "BROWSE": "Browse",
+  "GAME_UNKNOWN": "Unknown game",
+  "ERROR_CREATE_UNKNOWN_GAME": "The game you selected is not supported by the editor.",
+  "ERROR_CREATE_PROJECT_EXISTS": "A project with this name already exists.",
+  "ERROR_CREATE_PROJECT_INVALID_NAME": "The project name is invalid.",
+  "ERROR_CREATE_PROJECT_INVALID_LANGUAGE": "The project language is invalid."
 }

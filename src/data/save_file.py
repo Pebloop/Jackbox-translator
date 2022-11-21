@@ -21,6 +21,7 @@ class SaveFile:
         try:
             with open("./save/save", "r") as file:
                 self._file = json.load(file)
+                file.close()
             self._update_file()
             return True
         except FileNotFoundError:
@@ -30,6 +31,7 @@ class SaveFile:
     def save(self):
         with open("./save/save", "w") as file:
             json.dump(self._file, file)
+            file.close()
 
     def get_projects(self) -> list:
         return self._file.get(SaveFile.PROJECTS)

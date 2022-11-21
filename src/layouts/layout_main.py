@@ -4,8 +4,8 @@ from src.components.layout_changer import LayoutChanger
 from src.components.text import Text
 from src.data.appdata import AppData
 from src.events.event_language_changed import EventLanguageChanged
-from src.layouts.layout_create_project import LayoutCreateProject
-from src.layouts.layout_start import LayoutStart
+from src.layouts.pages.layout_create_project import LayoutCreateProject
+from src.layouts.pages.layout_start import LayoutStart
 from src.utils.align import Align
 
 
@@ -26,9 +26,8 @@ class LayoutMain(Layout):
         self._page = self._layout[1]
         self.load()
 
-    def change_page(self, page: Layout):
-        self._page.change_layout("create_project")
-        self._page.update({ })
+    def change_page(self, page: str):
+        self._page.change_layout(page)
 
     def _switch_language(self):
         """ Switch the language.

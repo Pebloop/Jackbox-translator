@@ -36,7 +36,7 @@ class AppData:
 
         """
         from src.layouts.layout_main import LayoutMain
-        from src.layouts.layout_start import LayoutStart
+        from src.layouts.pages.layout_start import LayoutStart
 
         self._window = None
         self._events = []
@@ -142,3 +142,11 @@ class AppData:
         :return: The style.
         """
         return self._style
+
+    def get_project_manager(self) -> ProjectManager:
+        """ Get the project manager.
+
+        This method is used to get the project manager.
+        :return: The project manager.
+        """
+        return self._project_manager
