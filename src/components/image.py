@@ -17,4 +17,4 @@ class Image(Component):
         super().__init__(appdata)
 
         self._path = path
-        self.sg_component = sg.Image(path, size = size)
+        self.sg_component = sg.Column([[sg.Image(path, size = size)]], pad = (0, 0), expand_x = True, expand_y = True)

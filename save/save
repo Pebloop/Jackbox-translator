@@ -1,1 +1,1 @@
-{"projects": ["JackBox Party 2 FR", "test"], "language": "FR"}
+{"projects": [{"name": "test", "language": "FR", "game": 2}], "language": "EN"}

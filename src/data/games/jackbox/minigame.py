@@ -9,10 +9,14 @@ class MinigameStatus(Enum):
 
 
 class Minigame:
-    _name = "N/A"
+    _name = ""
     _status = MinigameStatus.NOT_STARTED
 
-    def __init__(self, name):
+    def __init__(self, name: str):
+        """Minigame class constructor
+
+        This method is used to initialize the Minigame class.
+        """
         self._name = name
 
     def get_name(self):

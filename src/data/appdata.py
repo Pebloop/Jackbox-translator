@@ -7,8 +7,8 @@ from typing import List
 
 from PySimpleGUI import Window
 
-from src.data.manager.language_manager import LanguageManager
-from src.data.manager.project_manager import ProjectManager
+from src.data.language_manager import LanguageManager
+from src.data.projects.project_manager import ProjectManager
 from src.data.save_file import SaveFile
 from src.events.event import Event
 from src.utils.style import Style
@@ -35,8 +35,7 @@ class AppData:
         This method is used to initialize the app data.
 
         """
-        from src.layouts.layout_main import LayoutMain
-        from src.layouts.pages.layout_start import LayoutStart
+        from src.layouts.pages.layout_main import LayoutMain
 
         self._window = None
         self._events = []
@@ -44,7 +43,7 @@ class AppData:
         self._language_manager = LanguageManager(self._save_file.get_language())
         self._project_manager = ProjectManager(self._save_file.get_projects())
         self._style = Style(self)
-        self._page = LayoutStart(self)
+        self._page = None
         self._main_page = LayoutMain(self)
 
     def set_window(self, window: Window):

@@ -14,6 +14,7 @@ from src.events.event import Event
 from src.utils.align import Align
 from src.utils.color import Color
 from src.utils.font import Font
+from src.utils.override import Overrides
 from src.utils.style import Style
 
 
@@ -71,6 +72,16 @@ class Text(Component):
                                                 font = font,
                                                 key = str(id(self)))]], justification = str(align), pad = (0, 0))
 
+    @Overrides
+    def refresh(self, event: Event):
+        """ Refresh the text.
+
+        This method is used to refresh the text.
+        :param event: The events.
+        """
+        if event.get_type() == "EventLanguageChanged":
+            self._load_text()
+
     def load_text(self) -> str:
         """ Load the text.
 
@@ -88,44 +99,6 @@ class Text(Component):
         self.text = self._appdata.get_language_manager().get_text(self.key)
         self.sg_component.Rows[0][0].update(self.text)
 
-    def refresh(self, event: Event):
-        """ Refresh the text.
-
-        This method is used to refresh the text.
-        :param event: The events.
-        """
-        if event.get_type() == "EventLanguageChanged":
-            self._load_text()
-
-    def reload(self):
-        """ Reload the text.
-
-        This method is used to reload the text.
-        :return: The text.
-        """
-        self._load_text()
-        return self.sg_component
-
-    def set_color(self, color: Color):
-        """ Set the color of the text.
-
-        This method is used to set the color of the text.
-        :param color: The color of the text.
-        """
-        self.color = color
-        hex_color = color.get_hex() if color is not None else ""
-        self.sg_component.update(text_color = hex_color)
-
-    def set_background_color(self, background_color: Color):
-        """ Set the background color of the text.
-
-        This method is used to set the background color of the text.
-        :param background_color: The background color of the text.
-        """
-        self.background_color = background_color
-        hex_background_color = background_color.get_hex() if background_color is not None else None
-        self.sg_component.update(background_color = hex_background_color)
-
     def set_text(self, text: str):
         """ Set the text.
 
@@ -134,7 +107,7 @@ class Text(Component):
         """
         self.text = text
         self.is_key = False
-        self.sg_component.update(text)
+        self.sg_component.Rows[0][0].update(text)
 
     def get_text(self) -> str:
         """ Get the text.

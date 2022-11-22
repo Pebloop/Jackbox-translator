@@ -1,3 +1,4 @@
+from src.components.button import Button
 from src.components.image import Image
 from src.components.layout import Layout
 from src.components.text import Text
@@ -19,5 +20,10 @@ class ProjectElement(Layout):
         super().__init__(appdata)
         self._title = title
         self._image = image
-        self._layout = [[Image(appdata, image, size = (64, 64)), Text(appdata, title), Text(appdata, description)]]
+        self._layout = [[Image(appdata, image, size = (64, 64)),
+                         Layout(appdata,
+                                [[Text(appdata, text = title)],
+                                 [Text(appdata, text = description)]]),
+                         Button(appdata, Text(appdata, "OPEN"), action = lambda: print("test"))
+                         ]]
         self.load()

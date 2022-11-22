@@ -2,21 +2,19 @@ from __future__ import annotations
 
 import json
 
-import PySimpleGUI as sg
-
-from src.data.game import Game
-from src.data.games.jackbox2.jackbox2 import Jackbox2
-from src.data.jackgame import JackGame
+from src.data.games.game import Game
+from src.data.games.gameclasses import GAME_CLASSES
+from src.data.games.gamelist import GameList
 
 
 class Project:
     _name: str = "myProject"
     _language: str = "en"
     _path: str = ""
-    _game: JackGame = JackGame.UNKNOWN
+    _game: GameList = GameList.UNKNOWN
     _translation: Game
 
-    def __init__(self, name: str, language: str, path: str, game: JackGame):
+    def __init__(self, name: str, language: str, path: str, game: GameList):
         """Project class constructor
 
         This method is used to initialize the project class.
@@ -38,25 +36,11 @@ class Project:
         This method is used to instantiate the game.
         :return: The game.
         """
-        if self._game == JackGame.JACKBOX1:
-            sg.Popup("Jackbox 1 not yet Implemented")
-        elif self._game == JackGame.JACKBOX2:
-            return Jackbox2()
-        elif self._game == JackGame.JACKBOX3:
-            sg.Popup("Jackbox 3 not yet Implemented")
-        elif self._game == JackGame.JACKBOX4:
-            sg.Popup("Jackbox 4 not yet Implemented")
-        elif self._game == JackGame.JACKBOX5:
-            sg.Popup("Jackbox 5 not yet Implemented")
-        elif self._game == JackGame.JACKBOX6:
-            sg.Popup("Jackbox 6 not yet Implemented")
-        elif self._game == JackGame.JACKBOX7:
-            sg.Popup("Jackbox 7 not yet Implemented")
-        elif self._game == JackGame.JACKBOX8:
-            sg.Popup("Jackbox 8 not yet Implemented")
-        elif self._game == JackGame.JACKBOX9:
-            sg.Popup("Jackbox 9 not yet Implemented")
-        return Game(JackGame.UNKNOWN)
+        for game in GAME_CLASSES:
+            print("Found test: " + game.get_name())
+            if game.get_game() == self._game:
+                print("Found game: " + game.get_name())
+                return game()
 
     def get_name(self) -> str:
         """Get the name of the project.
@@ -82,7 +66,7 @@ class Project:
         """
         return self._path
 
-    def get_game(self) -> JackGame:
+    def get_game(self) -> GameList:
         """Get the game of the project.
 
         This method is used to get the game of the project.
@@ -129,12 +113,12 @@ class ProjectFile:
             json.dump(self._file, file)
             file.close()
 
-    def _update_file(self, name: str = None, language: str = None, game: JackGame = None, location: str = None,
+    def _update_file(self, name: str = None, language: str = None, game: GameList = None, location: str = None,
                      translation: Game = None):
         self._file = {
                 ProjectFile.NAME       : name or self._file.get(ProjectFile.NAME) or "myProject",
                 ProjectFile.LANGUAGE   : language or self._file.get(ProjectFile.LANGUAGE) or 'EN',
-                ProjectFile.GAME       : str(game) or self._file.get(ProjectFile.GAME) or str(JackGame.UNKNOWN),
+                ProjectFile.GAME       : str(game) or self._file.get(ProjectFile.GAME) or str(GameList.UNKNOWN),
                 ProjectFile.LOCATION   : location or self._file.get(ProjectFile.LOCATION) or "",
                 ProjectFile.TRANSLATION: translation or self._file.get(ProjectFile.TRANSLATION) or []
                 }

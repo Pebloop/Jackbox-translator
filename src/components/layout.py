@@ -21,10 +21,10 @@ class Layout(Component):
     VERTICAL = "VERTICAL"
     HORIZONTAL = "HORIZONTAL"
 
-    def __init__(self, appdata: AppData):
+    def __init__(self, appdata: AppData, layout: List[List[Component]] = [[]]):
         """ Page class constructor."""
         super().__init__(appdata)
-        self._layout = [[]]
+        self._layout = layout
         self._name = "Layout"
         self.align = Align.CENTER
         self.orientation = Layout.HORIZONTAL

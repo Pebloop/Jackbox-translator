@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class JackGame(Enum):
+class GameList(Enum):
     """Game enum."""
     UNKNOWN = 0
     JACKBOX1 = 1
