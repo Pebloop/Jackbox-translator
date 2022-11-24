@@ -1,3 +1,5 @@
+from src.data.games.game import Game
+from src.data.games.gamelist import GameList
 from src.data.games.jackbox.jackbox1.jackbox1 import Jackbox1
 from src.data.games.jackbox.jackbox2.jackbox2 import Jackbox2
 from src.data.games.jackbox.jackbox3.jackbox3 import Jackbox3
@@ -19,3 +21,10 @@ GAME_CLASSES = [
         Jackbox8,
         Jackbox9
         ]
+
+
+def get_game_class(game: GameList) -> Game:
+    for game_class in GAME_CLASSES:
+        if game_class.get_game() == game:
+            return game_class
+    return None

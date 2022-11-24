@@ -12,7 +12,7 @@ class Project:
     _language: str = "en"
     _path: str = ""
     _game: GameList = GameList.UNKNOWN
-    _translation: Game
+    _data: Game = Game()
 
     def __init__(self, name: str, language: str, path: str, game: GameList):
         """Project class constructor
@@ -28,7 +28,7 @@ class Project:
         self._path = path
         self._game = game
         self._file = ProjectFile(self)
-        self._translation = self._instantiate_game()
+        self._data = self._instantiate_game()
 
     def _instantiate_game(self) -> Game:
         """Instantiate the game.
@@ -37,9 +37,7 @@ class Project:
         :return: The game.
         """
         for game in GAME_CLASSES:
-            print("Found test: " + game.get_name())
             if game.get_game() == self._game:
-                print("Found game: " + game.get_name())
                 return game()
 
     def get_name(self) -> str:
@@ -74,6 +72,14 @@ class Project:
         """
         return self._game
 
+    def get_data(self) -> Game:
+        """Get the data of the project.
+
+        This method is used to get the data of the project.
+        :return: The data of the project.
+        """
+        return self._data
+
     def create(self):
         """Create the project.
 
@@ -81,13 +87,31 @@ class Project:
         """
         self._file.save()
 
+    def load(self):
+        """Load the project.
+
+        This method is used to load the project.
+        """
+        self._file.load()
+        self._language = self._file.get_language()
+        self._path = self._file.get_location()
+        self._game = self._file.get_game()
+        self._data = self._file.get_data().to_game(self._game)
+        print("project loaded !")
+
+    @classmethod
+    def load_project(cls, name: str) -> Project:
+        project = Project(name, "EN", "", GameList.UNKNOWN)
+        project.load()
+        return project
+
 
 class ProjectFile:
     NAME = "name"
     GAME = "game"
     LANGUAGE = "language"
     LOCATION = "location"
-    TRANSLATION = "translation"
+    DATA = "data"
 
     def __init__(self, project: Project):
         self._project = project
@@ -95,7 +119,9 @@ class ProjectFile:
         self._update_file(name = self._project.get_name(),
                           language = self._project.get_language(),
                           game = self._project.get_game(),
-                          location = self._project.get_path())
+                          location = self._project.get_path(),
+                          data = GameFile(self._project.get_data())
+                          )
 
     def load(self) -> bool:
         try:
@@ -114,11 +140,43 @@ class ProjectFile:
             file.close()
 
     def _update_file(self, name: str = None, language: str = None, game: GameList = None, location: str = None,
-                     translation: Game = None):
+                     data: GameFile = None):
+
         self._file = {
-                ProjectFile.NAME       : name or self._file.get(ProjectFile.NAME) or "myProject",
-                ProjectFile.LANGUAGE   : language or self._file.get(ProjectFile.LANGUAGE) or 'EN',
-                ProjectFile.GAME       : str(game) or self._file.get(ProjectFile.GAME) or str(GameList.UNKNOWN),
-                ProjectFile.LOCATION   : location or self._file.get(ProjectFile.LOCATION) or "",
-                ProjectFile.TRANSLATION: translation or self._file.get(ProjectFile.TRANSLATION) or []
+                ProjectFile.NAME    : name or self._file.get(ProjectFile.NAME) or "myProject",
+                ProjectFile.LANGUAGE: language or self._file.get(ProjectFile.LANGUAGE) or 'EN',
+                ProjectFile.GAME    : game.value if game is not None else self._file.get(ProjectFile.GAME) or str(
+                        GameList.UNKNOWN),
+                ProjectFile.LOCATION: location or self._file.get(ProjectFile.LOCATION) or "",
+                ProjectFile.DATA    : data.to_json() if data is not None else self._file.get(ProjectFile.DATA) or { }
                 }
+
+    def get_name(self) -> str:
+        return self._file.get(ProjectFile.NAME)
+
+    def get_language(self) -> str:
+        return self._file.get(ProjectFile.LANGUAGE)
+
+    def get_game(self) -> GameList:
+        return GameList(self._file.get(ProjectFile.GAME))
+
+    def get_location(self) -> str:
+        return self._file.get(ProjectFile.LOCATION)
+
+    def get_data(self) -> GameFile:
+        return GameFile(self._file.get(ProjectFile.DATA))
+
+
+class GameFile():
+    def __init__(self, game: Game):
+        self._file = { }
+
+    def to_json(self):
+        return self._file
+
+    def to_game(self, game: GameList):
+        res = Game()
+        for game in GAME_CLASSES:
+            if game.get_game() == game:
+                res = game()
+        return res

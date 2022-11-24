@@ -17,4 +17,9 @@ class Image(Component):
         super().__init__(appdata)
 
         self._path = path
-        self.sg_component = sg.Column([[sg.Image(path, size = size)]], pad = (0, 0), expand_x = True, expand_y = True)
+        self.sg_component = sg.Column([[sg.Image(path, size = size)]], pad = (0, 0), expand_x = True, expand_y =
+        True)
+
+    def set_image(self, path: str):
+        self._path = path
+        self.sg_component.Rows[0][0].update(path)

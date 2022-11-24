@@ -4,6 +4,7 @@ from src.data.games.gamelist import GameList
 from src.data.games.jackbox.jackbox import Jackbox
 from src.data.games.jackbox.jackbox1.drawful import Drawful
 from src.data.games.jackbox.jackbox1.fibbagexl import FibbageXL
+from src.data.games.jackbox.jackbox1.general import GeneralTJPP1
 from src.data.games.jackbox.jackbox1.lieswatter import LieSwatter
 from src.data.games.jackbox.jackbox1.wordspud import WordSpud
 from src.data.games.jackbox.jackbox1.youdontknowjack2015 import YouDontKnowJack2015
@@ -20,6 +21,7 @@ class Jackbox1(Jackbox):
         """
         super().__init__()
         self._minigames = [
+                GeneralTJPP1(),
                 YouDontKnowJack2015(),
                 FibbageXL(),
                 Drawful(),
@@ -43,3 +45,8 @@ class Jackbox1(Jackbox):
     @Overrides
     def get_name(cls) -> str:
         return "The Jackbox Party Pack"
+
+    @classmethod
+    @Overrides
+    def get_image(cls) -> str:
+        return "./res/tjpp1.png"

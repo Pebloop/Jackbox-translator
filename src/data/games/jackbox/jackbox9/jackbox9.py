@@ -33,3 +33,8 @@ class Jackbox9(Jackbox):
     @Overrides
     def get_name(cls) -> str:
         return "The Jackbox Party Pack 9"
+
+    @classmethod
+    @Overrides
+    def get_image(cls) -> str:
+        return "./res/tjpp9.png"

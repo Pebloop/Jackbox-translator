@@ -18,5 +18,8 @@
   "ERROR_CREATE_PROJECT_INVALID_NAME": "Merci d'enter un nom valide.",
   "ERROR_CREATE_PROJECT_INVALID_LANGUAGE": "Merci de choisir une langue valide.",
   "ERROR_NOT_IMPLEMENTED": "Cette fonctionnalite n'est pas encore implementee.",
-  "OPEN": "Ouvrir"
+  "OPEN": "Ouvrir",
+  "IMPORT": "Importer",
+  "EXPORT": "Exporter",
+  "BUILD": "Compiler"
 }

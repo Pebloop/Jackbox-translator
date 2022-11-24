@@ -6,12 +6,21 @@ from src.data.games.jackbox.jackbox2.bidiots import Bidiots
 from src.data.games.jackbox.jackbox2.bombcorp import BombCorp
 from src.data.games.jackbox.jackbox2.earwax import Earwax
 from src.data.games.jackbox.jackbox2.fibbage2 import Fibbage2
+from src.data.games.jackbox.jackbox2.general import GeneralTJPP2
 from src.data.games.jackbox.jackbox2.quiplashxl import QuiplashXL
 from src.utils.override import Overrides
 
 
 class Jackbox2(Jackbox):
     _name = "The Jackbox Party Pack 2"
+    _minigames = [
+            GeneralTJPP2(),
+            Fibbage2(),
+            Earwax(),
+            Bidiots(),
+            QuiplashXL(),
+            BombCorp()
+            ]
 
     def __init__(self):
         """Jackbox2 class constructor
@@ -19,13 +28,6 @@ class Jackbox2(Jackbox):
         This method is used to initialize the Jackbox2 class.
         """
         super().__init__()
-        self._minigames = [
-                Fibbage2(),
-                Earwax(),
-                Bidiots(),
-                QuiplashXL(),
-                BombCorp()
-                ]
 
     @classmethod
     @Overrides
@@ -43,3 +45,8 @@ class Jackbox2(Jackbox):
     @Overrides
     def get_name(cls) -> str:
         return "The Jackbox Party Pack 2"
+
+    @classmethod
+    @Overrides
+    def get_image(cls) -> str:
+        return "./res/tjpp2.png"

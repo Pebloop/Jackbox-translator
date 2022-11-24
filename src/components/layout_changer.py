@@ -26,13 +26,10 @@ class LayoutChanger(Component):
     def change_layout(self, layout: str):
         for idx, layout_ in enumerate(self._layouts):
             if layout_[0] == layout:
-                print(idx)
-                print(self.sg_component.Rows)
                 self.sg_component.Rows[0][idx].update(visible = True)
             else:
                 self.sg_component.Rows[0][idx].update(visible = False)
         self._appdata.get_window().refresh()
 
     def display(self):
-        print(self.sg_component)
         return self.sg_component

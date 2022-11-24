@@ -7,13 +7,13 @@ from src.events.event import Event
 from src.utils.override import Overrides
 
 
-class EventProjectCreated(Event):
-    """ Event page changed."""
+class EventProjectSelected(Event):
+    """ Event project selected."""
 
-    def __init__(self, appdata: AppData, meta: MetaProject):
+    def __init__(self, appdata: AppData, project: MetaProject):
         """ Event page changed constructor."""
         super().__init__(appdata)
-        self._meta = meta
+        self._project: MetaProject = project
 
     @Overrides
     def get_data(self) -> dict:
@@ -23,9 +23,10 @@ class EventProjectCreated(Event):
         :return: The data of the event.
         """
         return {
-                "project": self._meta
+                "project": self._project,
                 }
 
     @Overrides
     def execute(self):
         """ Execute the event."""
+        self._appdata.get_project_manager().set_project(self._project)

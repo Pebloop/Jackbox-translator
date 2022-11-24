@@ -5,6 +5,7 @@ from src.components.text import Text
 from src.data.appdata import AppData
 from src.events.event_language_changed import EventLanguageChanged
 from src.layouts.pages.layout_create_project import LayoutCreateProject
+from src.layouts.pages.layout_project_editor import LayoutProjectEditor
 from src.layouts.pages.layout_start import LayoutStart
 from src.utils.align import Align
 
@@ -20,7 +21,8 @@ class LayoutMain(Layout):
                 [Button(appdata, Text(appdata, "LANG"), action = lambda: self._switch_language())],
                 [LayoutChanger(appdata, [
                         ("start", LayoutStart(appdata)),
-                        ("create_project", LayoutCreateProject(appdata))
+                        ("create_project", LayoutCreateProject(appdata)),
+                        ("project_editor", LayoutProjectEditor(appdata))
                         ])
                  ]]
         self._page = self._layout[1][0]
@@ -35,8 +37,6 @@ class LayoutMain(Layout):
         This method is used to switch the language.
         :param appdata: The application data.
         """
-        print("Switching language...")
-        print("Current language: " + self._appdata.get_language_manager().get_current_language())
 
         if self._appdata.get_language_manager().get_current_language() == "EN":
             self._appdata.push_event(EventLanguageChanged(self._appdata, "FR"))

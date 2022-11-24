@@ -8,11 +8,18 @@ def launch_window():
     """ Launch the window.
     This is the main loop of the app
     """
+    loading = sg.Window("TranslatorBox", layout = [[sg.Text(text = "loading...")]], finalize = True,
+                        icon = "./res/icon.ico")
+
+    loading.refresh()
+
     data: AppData = AppData()
 
     window = sg.Window("TranslatorBox", layout = [[data.get_main_page().display()]], finalize = True,
                        icon = "./res/icon.ico")
     data.set_window(window)
+
+    loading.close()
 
     while True:
         while len(data.get_events()) > 0:
@@ -20,7 +27,7 @@ def launch_window():
             evn.execute()
             data.get_main_page().refresh(evn)
         event, values = window.read()
-        print(event, values)
+        # print(event, values)
         data.push_event(EventSimplePyGui(event, values))
 
         if event == sg.WIN_CLOSED:

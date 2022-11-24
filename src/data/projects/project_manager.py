@@ -15,6 +15,13 @@ class ProjectManager:
         return self._projects
 
     def create_project(self, project: Project):
-        self._projects.append(MetaProject(project.get_name(), project.get_language(), project.get_game()))
+        self._projects.append(MetaProject(project.get_name(), project.get_language(), project.get_game(),
+                                          project.get_data().get_image()))
         self._project = project
         self._project.create()
+
+    def set_project(self, project: MetaProject):
+        self._project = Project.load_project(project.name)
+
+    def get_project(self) -> Project:
+        return self._project

@@ -8,7 +8,8 @@ from src.events.event import Event
 class InputText(Component):
     def __init__(self,
                  appdata: AppData,
-                 action: () = None):
+                 action: () = None,
+                 size: tuple = (None, None)):
         """ Input text class constructor
 
             This method is used to initialize the input text component.
@@ -17,7 +18,7 @@ class InputText(Component):
         super().__init__(appdata)
 
         self.action = action
-        self.sg_component = sg.InputText(enable_events = True, key = str(id(self)))
+        self.sg_component = sg.InputText(enable_events = True, key = str(id(self)), expand_x = True, size = size)
 
     def refresh(self, event: Event):
         """ Refresh the text.
@@ -27,7 +28,7 @@ class InputText(Component):
         """
         if event.get_type() == "EventSimplePyGui":
             if event.get_data().get("event") == str(id(self)):
-                self.action() if self.action is not None else None
+                self.action(self.get_text()) if self.action is not None else None
 
     def get_text(self) -> str:
         """ Get the text.
