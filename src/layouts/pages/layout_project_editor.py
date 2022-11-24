@@ -44,6 +44,7 @@ class LayoutProjectEditor(Layout):
             self._title.set_text(self._project.get_name())
             self._language.set_text(self._project.get_language())
             self._game_layout.change_layout(get_game_class(self._project.get_game()).get_name())
+            self._project.get_data().reset_layout(self._project.get_path())
 
     def _back(self):
         self._appdata.push_event(EventPageChanged(self._appdata, "start"))

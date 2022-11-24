@@ -27,3 +27,6 @@ class Game:
         from src.components.layout import Layout
         from src.components.text import Text
         return Layout(appdata, [[Text(appdata, text = "No game layout found.")]])
+
+    def reset_layout(self, path: str):
+        pass

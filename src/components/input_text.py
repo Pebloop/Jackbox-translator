@@ -37,3 +37,11 @@ class InputText(Component):
             :return: The text.
         """
         return self.sg_component.get()
+
+    def set_text(self, text: str):
+        """ Set the text.
+
+            This method is used to set the text.
+            :param text: The text.
+        """
+        self.sg_component.update(value = text)

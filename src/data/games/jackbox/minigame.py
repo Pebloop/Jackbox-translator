@@ -1,7 +1,5 @@
-import json
 from enum import Enum
 
-from src.data.translation.translation_cell import TranslationCell
 from src.data.translation.translation_cell_manager import TranslationCellManager
 
 
@@ -50,22 +48,9 @@ class Minigame:
     def get_layout(self, appdata):
         return None
 
-    @classmethod
-    def load_translation(cls):
-        """Load translation
+    def load_translation(self, path: str):
+        pass
 
-        This method is used to load the translation of the class.
-        """
-        cls._translation.get_cells().clear()
-        for path in cls._translation_files:
-            try:
-                with open(path, "r") as file:
-                    data = json.load(file)
-                    print(data)
-
-                    for key in data:
-                        cls._translation.add_cell(TranslationCell(key, data[key]))
-
-                    file.close()
-            except:
-                print("Error while loading translation file: ", path)
+    def reset_layout(self):
+        self.load_translation()
+        pass

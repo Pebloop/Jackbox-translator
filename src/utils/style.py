@@ -23,13 +23,13 @@ class Style:
         self.theme = ""
 
         self.title1 = Text(appdata, "title1", font = Font(size = 18, is_bold = True, is_underline = True))
-        self.title2 = Text(appdata, "title2")
+        self.title2 = Text(appdata, "title2", font = Font(size = 16, is_bold = True))
         self.title3 = Text(appdata, "title3")
         self.title4 = Text(appdata, "title4")
         self.title5 = Text(appdata, "title5")
 
         self.text = Text(appdata, "text")
-        self.quote = Text(appdata, "quote")
+        self.quote = Text(appdata, "quote", font = Font(size = 10, is_italic = True))
         self.link = Text(appdata, "link")
 
     @classmethod

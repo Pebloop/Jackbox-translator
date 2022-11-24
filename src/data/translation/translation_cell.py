@@ -2,14 +2,14 @@ from typing import Optional
 
 
 class TranslationCell:
-    _key: str = ""
-    _value: str = ""
-    _original_value: str = ""
+    _key: Optional[str] = None
+    _value: Optional[str] = None
+    _original_value: Optional[str] = None
 
     def is_changed(self):
         return self._value != self._original_value
 
-    def __init__(self, key: str, original_value, value: Optional[str] = None):
+    def __init__(self, key: str = None, original_value = None, value: Optional[str] = None):
         """TranslationCell class constructor
 
         This method is used to initialize the TranslationCell class.

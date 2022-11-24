@@ -176,7 +176,7 @@ class GameFile():
 
     def to_game(self, game: GameList):
         res = Game()
-        for game in GAME_CLASSES:
-            if game.get_game() == game:
-                res = game()
+        for g in GAME_CLASSES:
+            if g.get_game() == game:
+                res = g()
         return res

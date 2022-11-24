@@ -8,7 +8,7 @@ from src.layouts.project_element import ProjectElement
 
 
 class ProjectElementManager(Layout):
-    MAX_PROJECTS = 100
+    MAX_PROJECTS = 20
     _elements: List[Layout] = []
 
     def __init__(self,
