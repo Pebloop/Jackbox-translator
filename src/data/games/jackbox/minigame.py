@@ -13,8 +13,8 @@ class MinigameStatus(Enum):
 class Minigame:
     _name = ""
     _status = MinigameStatus.NOT_STARTED
-    _translation_files = []
     _translation: TranslationCellManager = TranslationCellManager()
+    _translation_files = []
 
     def __init__(self, name: str):
         """Minigame class constructor
@@ -50,6 +50,9 @@ class Minigame:
 
     def load_translation(self, path: str):
         pass
+
+    def set_translation(self, translation: TranslationCellManager):
+        self._translation = translation
 
     def reset_layout(self):
         self.load_translation()

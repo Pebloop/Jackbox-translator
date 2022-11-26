@@ -14,6 +14,12 @@ class TranslationCellManager:
         if cells is not None:
             self._cells = cells
 
+    def __str__(self):
+        cells = ""
+        for cell in self._cells:
+            cells += f"{str(cell)}, "
+        return f"TranslationCellManager(cells={cells})"
+
     def add_cell(self,
                  cell: TranslationCell = None,
                  key: str = "",
@@ -70,3 +76,13 @@ class TranslationCellManager:
         for cell in self._cells:
             keys.append(cell.get_key())
         return keys
+
+    def update(self, key: str, original_value: str, value: str):
+        cell = self.get_cell(key)
+        if cell is None:
+            self.add_cell(key = key, original_value = value)
+        else:
+            if cell.get_value() is None:
+                cell.set_value(value)
+            if cell.get_original_value() is None:
+                cell._original_value = value

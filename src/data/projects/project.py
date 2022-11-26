@@ -99,11 +99,50 @@ class Project:
         self._data = self._file.get_data().to_game(self._game)
         print("project loaded !")
 
+    def save(self):
+        """Save the project.
+
+        This method is used to save the project.
+        """
+        self._file.save()
+
     @classmethod
     def load_project(cls, name: str) -> Project:
         project = Project(name, "EN", "", GameList.UNKNOWN)
         project.load()
         return project
+
+    def export(self, path: str) -> bool:
+        """Export the project.
+
+        This method is used to export the project.
+        :param path: The path to export the project.
+        """
+        self._file.export(path)
+        return True
+
+    def import_(self, path: str) -> bool:
+        """Import the project.
+
+        This method is used to import the project.
+        :param path: The path to import the project.
+        """
+        with open(path, "r") as file:
+            file = json.load(file)
+            if file.get(ProjectFile.GAME) is not self._game:
+                return False
+            self._data = file.get(ProjectFile.DATA).to_game(self._game)
+            file.close()
+        self._file.save()
+        return True
+
+    def build(self, path: str):
+        """Build the project.
+
+        This method is used to build the project.
+        :param path: The path to build the project.
+        """
+        pass
 
 
 class ProjectFile:
@@ -125,7 +164,7 @@ class ProjectFile:
 
     def load(self) -> bool:
         try:
-            with open("./save/projects/" + self._project.get_name(), "r") as file:
+            with open("./save/projects/" + self._project.get_name() + ".tbp", "r") as file:
                 self._file = json.load(file)
                 file.close()
             self._update_file()
@@ -135,9 +174,25 @@ class ProjectFile:
             return False
 
     def save(self):
-        with open("./save/projects/" + self._project.get_name(), "w") as file:
+        self._update_file(name = self._project.get_name(),
+                          language = self._project.get_language(),
+                          game = self._project.get_game(),
+                          location = self._project.get_path(),
+                          data = GameFile(game = self._project.get_data()))
+        with open("./save/projects/" + self._project.get_name() + ".tbp", "w") as file:
             json.dump(self._file, file)
             file.close()
+
+    def export(self, path: str):
+        with open(path, "w") as file:
+            json.dump(self._file, file)
+            file.close()
+
+    def import_(self, path: str):
+        with open(path, "r") as file:
+            self._file = json.load(file)
+            file.close()
+        self._update_file()
 
     def _update_file(self, name: str = None, language: str = None, game: GameList = None, location: str = None,
                      data: GameFile = None):
@@ -167,16 +222,44 @@ class ProjectFile:
         return GameFile(self._file.get(ProjectFile.DATA))
 
 
-class GameFile():
-    def __init__(self, game: Game):
+class GameFile:
+
+    def __init__(self, data: dict = None, gamelist: GameList = None, game: Game = None):
         self._file = { }
+        if game is not None:
+            self._game = game
+            self.save()
+        elif data is not None and gamelist is not None:
+            self._file = data
+            self.to_game(gamelist)
+        self._game = game
 
     def to_json(self):
+        self.save()
         return self._file
 
+    def save(self):
+        self._file = { }
+
+        if self._game is not None:
+            for category in self._game.get_translation():
+                cells: list = []
+                for cell in category[1].get_cells():
+                    cells.append({
+                            "key"  : cell.get_key(),
+                            "value": cell.get_value(),
+                            })
+                self._file.update({ category[0]: cells })
+
     def to_game(self, game: GameList):
-        res = Game()
+        res: Game = Game()
+        self._game = game
         for g in GAME_CLASSES:
             if g.get_game() == game:
                 res = g()
+                for category in res.get_translation():
+                    if self._file.get(category[0]) is not None:
+                        for cell in self._file.get(category[0]):
+                            category[1].set_value(cell.get("key"), cell.get("value"))
+                    res.set_translations()
         return res

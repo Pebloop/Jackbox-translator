@@ -1,4 +1,4 @@
-from src.data.games.game import Game
+from src.data.games.game import Game, TranslationManager
 from src.data.games.jackbox.minigame import Minigame
 from src.data.translation.translation_cell import TranslationCell
 
@@ -16,6 +16,8 @@ class Jackbox(Game):
         This method is used to initialize the Jackbox class.
         """
         super().__init__()
+        for mini in self._minigames:
+            self._translation.append((mini.get_name(), mini.get_translation()))
 
     @classmethod
     def get_minigames(cls) -> list[Minigame]:
@@ -93,12 +95,13 @@ class Jackbox(Game):
                 cls._translation_cells[i].set_visible(False)
             else:
                 cls._translation_cells[i].set_visible(True)
-                cls._translation_cells[i]._layout[0][0].set_text(
-                        mini.get_translation().get_cells()[i * (cls._translation_page + 1)].get_key())
-                cls._translation_cells[i]._layout[1][0].set_text(
-                        mini.get_translation().get_cells()[i * (cls._translation_page + 1)].get_original_value())
-                cls._translation_cells[i]._layout[2][0].set_text(
-                        mini.get_translation().get_cells()[i * (cls._translation_page + 1)].get_value())
+                cell = mini.get_translation().get_cells()[i * (cls._translation_page + 1)]
+                cls._translation_cells[i]._layout[0][0].set_text(cell.get_key())
+                cls._translation_cells[i]._layout[1][0].set_text(cell.get_original_value())
+                from src.components.input_text import InputText
+                input_: InputText = cls._translation_cells[i]._layout[2][0]
+                input_.set_text(cell.get_value())
+                input_.set_action(lambda t = None, i_ = input_, c_ = cell: c_.set_value(i_.get_text()))
 
     @classmethod
     def get_default_translation_layout(cls, appdata):
@@ -125,10 +128,32 @@ class Jackbox(Game):
         return None
 
     def reset_layout(self, path: str):
+        self.set_translations()
         for game in self._minigames:
+            print(game.get_translation())
             if self._use_default_layout:
                 game.load_translation(path)
+                print(game.get_translation())
                 self._translation_page = 0
                 self.__update_default_layout(game)
             else:
                 game.reset_layout()
+
+    def get_translation(self) -> TranslationManager:
+        """Get the translation of the game.
+
+        This method is used to get the translation of the game.
+        :return: The translation of the game.
+        """
+        self._translation.clear()
+        for mini in self._minigames:
+            category = mini.get_name()
+            cells = mini.get_translation()
+            self._translation.append((category, cells))
+        return self._translation
+
+    def set_translations(self):
+        for mini in self._minigames:
+            for category, cells in self._translation:
+                if category == mini.get_name():
+                    mini.set_translation(cells)

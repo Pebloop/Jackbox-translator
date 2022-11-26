@@ -9,7 +9,8 @@ class InputText(Component):
     def __init__(self,
                  appdata: AppData,
                  action: () = None,
-                 size: tuple = (None, None)):
+                 size: tuple = (None, None),
+                 visible: bool = True):
         """ Input text class constructor
 
             This method is used to initialize the input text component.
@@ -18,7 +19,11 @@ class InputText(Component):
         super().__init__(appdata)
 
         self.action = action
-        self.sg_component = sg.InputText(enable_events = True, key = str(id(self)), expand_x = True, size = size)
+        self.sg_component = sg.InputText(enable_events = True,
+                                         key = str(id(self)),
+                                         expand_x = True,
+                                         size = size,
+                                         visible = visible)
 
     def refresh(self, event: Event):
         """ Refresh the text.
@@ -45,3 +50,11 @@ class InputText(Component):
             :param text: The text.
         """
         self.sg_component.update(value = text)
+
+    def set_action(self, action: () = None):
+        """ Set the action.
+
+            This method is used to set the action.
+            :param action: The action.
+        """
+        self.action = action

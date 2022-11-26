@@ -18,6 +18,9 @@ class TranslationCell:
         self._value = value or original_value
         self._original_value = original_value
 
+    def __str__(self):
+        return f"TranslationCell(key={self._key}, value={self._value}, original_value={self._original_value})"
+
     def set_value(self, value):
         self._value = value
 

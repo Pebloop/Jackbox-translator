@@ -32,6 +32,9 @@ def launch_window():
 
         if event == sg.WIN_CLOSED:
             data.get_save_file().save()
+            project = data.get_project_manager().get_project()
+            if project is not None:
+                project.save()
             break
 
     window.close()
